@@ -1,4 +1,4 @@
-crate AddClass() and RemoveClass() to replace jquery addclass()
+crate AddClass() and RemoveClass() to replace jquery's.
 ===============================================================
 
 ```
