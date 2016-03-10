@@ -196,22 +196,24 @@
              */
 
             //封装的增删类型方法,未调用,使用Jquery
-            function hasClass(obj,classname){
+            function hasClass(obj, classname) {
                 var judge = obj.className.indexOf(classname);
-                if(judge<0){
+                if (judge < 0) {
                     return -1;
-                }else {
+                } else {
                     return 1;
                 }
             }
-            function addClass(obj,classname){
-                if(hasClass(obj,classname)<0){
-                    obj.className += ' '+classname;
+
+            function addClass(obj, classname) {
+                if (hasClass(obj, classname) < 0) {
+                    obj.className += ' ' + classname;
                 }
             }
-            function removeClass(obj,classname){
-                if(hasClass(obj,classname)>=0){
-                    obj.className.replace(classname,'');
+
+            function removeClass(obj, classname) {
+                if (hasClass(obj, classname) >= 0) {
+                   obj.className = obj.className.replace(classname, '');
                 }
             }
 
@@ -247,8 +249,10 @@
 
                     //对logo_fly显示进行控制(未使用),有待讨论
                     if (0 <= sT && sT < p1H) {
-                        $('.p1').addClass('baf');
-                        $('.p2').addClass('bas');
+                        // $('.p1').addClass('baf');
+                        // $('.p2').addClass('bas');
+                        addClass(p1,'baf');
+                        addClass(p2,'bas');
                     }
                     if (p1H <= sT && sT < (p1H+p2H)) {
                         var per1 = p1H+p2H/9;
@@ -261,9 +265,10 @@
                         var per8 = p1H+p2H/9*8;
                         var per9 = p1H+p2H;
                         if (delta < 0) {
-                            $('.p2').removeClass('bas');
-                            $('.p2').addClass('baf');
-
+                            // $('.p2').removeClass('bas');
+                            // $('.p2').addClass('baf');
+                            removeClass(p2,'bas');
+                            addClass(p2,'baf');
                             if (per1 < sT && sT <= per2)pe.style.opacity = '1';
                             if (per2 < sT && sT <= per3)pc.style.opacity = '1';
                             if (per3 < sT && sT <= per4)pa.style.opacity = '1';
