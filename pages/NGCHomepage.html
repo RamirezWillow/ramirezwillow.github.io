@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="南瓜车 美发 app" >
+    <meta name="description" content="南瓜车官网" >
+    <meta name="robots" content="noindex,follow" />
+    <meta name="author" content="Willow and his predecessor" >
+
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!--<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+        }
+        body {
+
+            width: 100%;
+            height: 100%;
+
+        }
+        img {
+            width: 100%;
+
+            /*消除图片间的缝隙*/
+            vertical-align: top;
+            display: block;
+
+        }
+
+        div {
+            position: relative;
+        }
+
+        .logo_fly {
+            will-change: opacity;
+            position: fixed;
+            top: 0;
+            z-index: 2;
+            -webkit-animation: lf 3s ease-in-out 0s 1 normal;
+            -moz-animation: lf 3s ease-in-out 0s 1 normal;
+            -ms-animation: lf 3s ease-in-out 0s 1 normal;
+            -o-animation: lf 3s ease-in-out 0s 1 normal;
+            animation: lf 3s ease-in-out 0s 1 normal;
+        }
+
+        /*首页logo显示动画*/
+        @-webkit-keyframes lf {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @-moz-keyframes lf {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @-ms-keyframes lf {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @-o-keyframes lf {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes lf {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .p1, .p2, .p3 {
+            width: 100%;
+        }
+
+        .p1 {
+            background: url("pic/pc_p1_bg.jpg") no-repeat;
+            background-size: 100%;
+        }
+
+        .p2 {
+            background: url("pic/pc_p2.jpg") no-repeat;
+            background-size: 100%;
+            z-index: 3;
+        }
+
+        .p3 {
+            background: url("pic/pc_p3_bg.jpg") no-repeat;
+            background-size: 100%;
+            z-index: 3;
+        }
+
+        .p3_echo, .p3_ngc, .p3_dzhdp, .p3_albb, .p3_chy, .p3_h {
+            will-change: opacity;
+            position: absolute;
+            left: 0;
+            top: 0;
+
+        }
+
+        .footer {
+            will-change: opacity;
+            bottom: 0;
+            position: fixed;
+            width: 100%;
+            opacity: 0;
+            z-index: 4;
+        }
+
+        /*页脚淡出*/
+        @-webkit-keyframes f {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .baf {
+            background-attachment: fixed;
+        }
+
+        .bas {
+            background-attachment: scroll;
+        }
+    </style>
+    <style>
+        *{margin:0;padding:0}html{min-width:1000px}body{width:100%;height:100%}img{width:100%;vertical-align:top;display:block}div{position:relative}.logo_fly{will-change:opacity;position:fixed;top:0;z-index:2;-webkit-animation:lf 3s ease-in-out 0s 1 normal;-moz-animation:lf 3s ease-in-out 0s 1 normal;-ms-animation:lf 3s ease-in-out 0s 1 normal;-o-animation:lf 3s ease-in-out 0s 1 normal;animation:lf 3s ease-in-out 0s 1 normal}@-webkit-keyframes lf{from{opacity:0}to{opacity:1}}@-moz-keyframes lf{from{opacity:0}to{opacity:1}}@-ms-keyframes lf{from{opacity:0}to{opacity:1}}@-o-keyframes lf{from{opacity:0}to{opacity:1}}@keyframes lf{from{opacity:0}to{opacity:1}}.p1,.p2,.p3{width:100%}.p1{background:url(pic/pc_p1_bg.jpg) no-repeat;background-size:100%}.p2{background:url(pic/pc_p2.jpg) no-repeat;background-size:100%;z-index:3}.p3{background:url(pic/pc_p3_bg.jpg) no-repeat;background-size:100%;z-index:3}.p3_albb,.p3_chy,.p3_dzhdp,.p3_echo,.p3_h,.p3_ngc{will-change:opacity;position:absolute;left:0;top:0}.footer{will-change:opacity;bottom:0;position:fixed;width:100%;opacity:0;z-index:4}@-webkit-keyframes f{from{opacity:1}to{opacity:0}}.baf{background-attachment:fixed}.bas{background-attachment:scroll}
+    </style>
+</head>
+<body>
+<div class="main">
+    <!--logo-->
+    <img class="logo_fly" src="pic/pc_p1_logo.png" style="opacity: 1;" alt="占位">
+    <!--Beauty-->
+    <div class="p1">
+        <img src="pic/pc_p1_logo.png" style="opacity: 0;" alt="占位">
+    </div>
+    <!--App-->
+    <div class="p2">
+        <img src="pic/pc_p1_logo.png" style="opacity: 0;" alt="占位">
+    </div>
+    <!--Echo-->
+    <div class="p3">
+        <img src="pic/pc_p3_echo.png" style="opacity: 0;" alt="占位">
+
+        <img src="pic/pc_p3_echo.png" style="opacity: 0;" alt="boss" class="p3_echo">
+        <img src="pic/pc_p3_chuangye.png" style="opacity: 0;" alt="chuangye" class="p3_chy">
+        <img src="pic/pc_p3_alibaba.png" style="opacity: 0;" alt="alibaba" class="p3_albb">
+        <img src="pic/pc_p3_dianping.png" style="opacity: 0;" alt="dazhongdianping" class="p3_dzhdp">
+        <img src="pic/pc_p3_nanguache.png" style="opacity: 0;" alt="nanguache" class="p3_ngc">
+        <img src="pic/pc_p3_honor.png" style="opacity: 0;" alt="honor" class="p3_h">
+    </div>
+    <!--Foot-->
+    <div class="p4">
+        <img src="pic/pc_footer.png" alt="">
+    </div>
+    <!--Foot Fly-->
+    <div id="footer" class="footer">
+        <img src="pic/pc_footer.png" alt="">
+    </div>
+</div>
+<script>
+    (function () {
+        window.addEventListener('scroll', function () {
+            /**
+             * 增删类名
+             * @param obj
+             * @param cls
+             */
+
+            //封装的增删类型方法,未调用,使用Jquery
+            function hasClass(obj, cls) {
+                return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+            }
+
+            function addClass(obj, cls) {
+                if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+            }
+
+            function removeClass(obj, cls) {
+                if (hasClass(obj, cls)) {
+                    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+                    obj.className = obj.className.replace(reg, ' ');
+                }
+            }
+
+            var sT = document.body.scrollTop;
+            var p1 = document.querySelector('.p1');
+            var p2 = document.querySelector('.p2');
+            var p3 = document.querySelector('.p3');
+            //三个页面高度
+            var p1H = p1.offsetHeight;
+            var p2H = p2.offsetHeight;
+            document.body.scroll = "no";
+            function wheel(event) {
+                var delta = 0;
+                if (!event) event = window.event;
+                if (event.wheelDelta) {
+                    delta = event.wheelDelta;
+                    if (window.opera) delta = -delta;
+                } else if (event.detail) {
+                    delta = -event.detail;
+                }
+                if (delta) {
+                    var pe = document.body.querySelector('.p3_echo');
+                    var pc = document.body.querySelector('.p3_chy');
+                    var pa = document.body.querySelector('.p3_albb');
+                    var pd = document.body.querySelector('.p3_dzhdp');
+                    var pn = document.body.querySelector('.p3_ngc');
+                    var ph = document.body.querySelector('.p3_h');
+
+                    var pg3weicha = document.querySelector('.p3').offsetTop - document.body.scrollTop;
+                    var fOpen = document.body.scrollHeight - document.body.scrollTop - document.documentElement.clientHeight;
+
+                    
+
+                    //对logo_fly显示进行控制(未使用),有待讨论
+                    if (0 <= sT && sT < p1H) {
+                        $('.p1').addClass('baf');
+                        $('.p2').addClass('bas');
+                    }
+                    if (p1H <= sT && sT < (p1H+p2H)) {
+                        var per1 = p1H+p2H/9;
+                        var per2 = p1H+p2H/9*2;
+                        var per3 = p1H+p2H/9*3;
+                        var per4 = p1H+p2H/9*4;
+                        var per5 = p1H+p2H/9*5;
+                        var per6 = p1H+p2H/9*6;
+                        var per7 = p1H+p2H/9*7;
+                        var per8 = p1H+p2H/9*8;
+                        var per9 = p1H+p2H;
+                        if (delta < 0) {
+                            $('.p2').removeClass('bas');
+                            $('.p2').addClass('baf');
+
+                            if (per1 < sT && sT <= per2)pe.style.opacity = '1';
+                            if (per2 < sT && sT <= per3)pc.style.opacity = '1';
+                            if (per3 < sT && sT <= per4)pa.style.opacity = '1';
+                            if (per4 < sT && sT <= per5)pd.style.opacity = '1';
+                            if (per5 < sT && sT <= per6)pn.style.opacity = '1';
+                            if (per6 < sT && sT <= per7)ph.style.opacity = '1';
+                        } else {
+                            if (per3 < sT && sT <= per4)pe.style.opacity = '0';
+                            if (per4 < sT && sT <= per5)pc.style.opacity = '0';
+                            if (per5 < sT && sT <= per6)pa.style.opacity = '0';
+                            if (per6 < sT && sT <= per7)pd.style.opacity = '0';
+                            if (per7 < sT && sT <= per8)pn.style.opacity = '0';
+                            if (per8 < sT && sT <= per9)ph.style.opacity = '0';
+                        }
+                    }
+
+                    if (delta < 0) {
+                        if (fOpen === 0) {
+                            document.querySelector('.footer').style.cssText = "opacity: 1;";
+                        }
+                    } else {
+                        if (pg3weicha >= 0) {
+                            document.querySelector('.footer').style.cssText = "-webkit-animation: f 2s ease-in-out 0s 1 normal;";
+                        }
+                    }
+                }
+            }
+
+            if (window.addEventListener)
+                window.addEventListener('DOMMouseScroll', wheel, false);
+            window.onmousewheel = document.onmousewheel = wheel;
+        });
+    }());
+</script>
+<template>
+    Problems:
+        1.干掉jquery
+        2.组件过渡很突兀,加快操作响应不及时
+        3.关于如何限定浏览器窗口宽高问题
+        4.兼容性问题(先知还是后测)
+        5.没有结构化组件化意思(思维逻辑,代码逻辑)
+</template>
+</body>
+</html>
