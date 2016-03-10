@@ -1,3 +1,6 @@
+crate AddClass() and RemoveClass() to replace jquery addclass()
+===============================================================
+
 ```
 (function () {
             function hasClass(obj,classname){
