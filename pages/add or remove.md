@@ -1,3 +1,4 @@
+```
 (function () {
             function hasClass(obj,classname){
                 var judge = obj.indexOf(classname);
@@ -18,3 +19,4 @@
                 }
             }
         }());
+```
