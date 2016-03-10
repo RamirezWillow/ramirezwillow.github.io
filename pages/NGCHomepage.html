@@ -196,18 +196,22 @@
              */
 
             //封装的增删类型方法,未调用,使用Jquery
-            function hasClass(obj, cls) {
-                return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+            function hasClass(obj,classname){
+                var judge = obj.className.indexOf(classname);
+                if(judge<0){
+                    return -1;
+                }else {
+                    return 1;
+                }
             }
-
-            function addClass(obj, cls) {
-                if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+            function addClass(obj,classname){
+                if(hasClass(obj,classname)<0){
+                    obj.className += ' '+classname;
+                }
             }
-
-            function removeClass(obj, cls) {
-                if (hasClass(obj, cls)) {
-                    var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-                    obj.className = obj.className.replace(reg, ' ');
+            function removeClass(obj,classname){
+                if(hasClass(obj,classname)>=0){
+                    obj.className.replace(classname,'');
                 }
             }
 
