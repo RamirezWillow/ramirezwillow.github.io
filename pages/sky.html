@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui"/>
+    <title>Sky</title>
+    <template>http://www.jianshu.com/p/f5c0f9c4bc39</template>
+    <style>
+        body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+        dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+        pre, /* text formatting elements 文本格式元素 */
+        fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+        th, td { /* table elements 表格元素 */
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+        body {
+            width: 100%;
+        }
+
+        .container {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <canvas id="canvas" height="620" width="1360" style="position: absolute; height: 100%;">
+</div>
+<script>
+    (function () {
+        //获取对象并绘制上下文
+        var canvasEl = document.getElementById('canvas');
+        var ctx = canvasEl.getContext('2d');
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        var mousePos = [0, 0];
+        var easingFactor = 5.0;
+
+        //基本样式
+        var backgroundColor = '#000';
+        var nodeColor = '#EA4C89';
+        var edgeColor = '#3A76DB';
+
+        //存放点和线的数组
+        var nodes = [];
+        var edges = [];
+        //字典对象方式存储点信息
+        function constructNodes() {
+            for (var i = 0; i < 50; i++) {
+                var node = {
+                    //给第一个点加了一个 drivenByMouse 属性，这个点的位置不会被粒子系统管理，也不会绘制出来，但是它会与其他点连线，这样就实现了鼠标跟随的效果了。
+                    drivenByMouse: i == 0,
+                    x: Math.random() * canvasEl.width,
+                    y: Math.random() * canvasEl.height,
+                    vx: Math.random() * 1 - 0.5,
+                    vy: Math.random() * 1 - 0.5,
+                    //不断调整这个概率阈值就能获取期待的半径随机分布
+                    radius: Math.random() > 0.9 ? 5 + Math.random() * 5 : 1 + Math.random() * 5
+                };
+                nodes.push(node);
+            }
+            nodes.forEach(function (e1) {
+                nodes.forEach(function (e2) {
+                    if (e1 == e2) {return;}
+                    var edge = {from: e1, to: e2};
+                    addEdge(edge);
+                });
+            });
+        }
+        //存放边信息
+        function addEdge(edge) {
+            edges.forEach(function (e) {
+                //预防重复创建
+                if (e.from == edge.from && e.to == edge.to)return;
+                if (e.to == edge.from && e.from == edge.to)return;
+            });
+            edges.push(edge);
+        }
+        //粒子系统:遍历粒子并更新其状态
+        function step() {
+            nodes.forEach(function (e) {
+                if (e.drivenByMouse)return;
+                //v = v + a
+                //s = s + v
+                e.x += e.vx;
+                e.y += e.vy;
+                function clamp(min, max, value) {
+                    if (value > max) {return max;}
+                    else if (value < min) {return min;}
+                    else {return value;}
+                }
+                //边缘碰撞:速度矢量反转,让粒子掉头
+                if (e.x <= 0 || e.x >= canvasEl.width) {
+                    e.vx *= -1;
+                    e.x = clamp(0, canvasEl.width, e.x)
+                }
+                if (e.y <= 0 || e.y >= canvasEl.height) {
+                    e.vy *= -1;
+                    e.y = clamp(0, canvasEl.height, e.y)
+                }
+            });
+
+            adjustNodeDrivenByMouse();
+            render();
+            window.requestAnimationFrame(step);//粒子系统连续运转timer,实现连贯逐帧动画
+        }
+        function adjustNodeDrivenByMouse() {
+            //鼠标跟随
+            //缓动公式 x = x + (t - x) / factor
+            //factor 是缓动因子，t 是最终位置，x 是当前位置
+            nodes[0].x += (mousePos[0] - nodes[0].x) / easingFactor;
+            nodes[0].y += (mousePos[1] - nodes[0].y) / easingFactor;
+        }
+        function lengthOfEdge(edge) {
+            return Math.sqrt(Math.pow((edge.from.x - edge.to.x), 2) + Math.pow((edge.from.y - edge.to.y), 2));
+            //Math.sqrt(Math.pow(3, 2) + Math.pow(4, 2))===5
+        }
+        //绘制画布
+        function render() {
+            ctx.fillStyle = backgroundColor;
+            ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
+            edges.forEach(function (e) {
+                var l = lengthOfEdge(e);
+                //粒子间距离阈值
+                var threshold = canvasEl.width / 8;
+                if (l > threshold) {return;}
+                ctx.strokeStyle = edgeColor;
+                ctx.lineWidth = (1.0 - l / threshold) * 2.5;
+                ctx.globalAlpha = 1.0 - l / threshold;
+                ctx.beginPath();
+                ctx.moveTo(e.from.x, e.from.y);
+                ctx.lineTo(e.to.x, e.to.y);
+                ctx.stroke();
+            });
+            ctx.globalAlpha = 1.0;
+            nodes.forEach(function (e) {
+                if (e.drivenByMouse) {return;}
+                ctx.fillStyle = nodeColor;
+                ctx.beginPath();
+                ctx.arc(e.x, e.y, e.radius, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+        //窗口大小发生变化时进行重绘,并调整自身分辨率
+        window.onresize = function () {
+            canvasEl.width = document.body.clientWidth;
+            canvasEl.height = canvasEl.clientHeight;
+
+            if (nodes.length == 0) {
+                constructNodes();
+            }
+
+            render();
+        };
+        window.onmousemove = function (e) {
+            mousePos[0] = e.clientX;
+            mousePos[1] = e.clientY;
+        };
+        window.onresize(); // trigger the event manually.
+        window.requestAnimationFrame(step);//它能保证你的帧率锁定在 <= 60 fps ，不至于爆掉你的浏览器
+    }).call(this);
+</script>
+<script>
+    window.requestAnimFrame = (function(){
+        return  window.requestAnimationFrame       ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame    ||
+                function( callback ){
+                    window.setTimeout(callback, 1000 / 60);
+                };
+    })();
+</script>
+<template>
+    window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+</template>
+<template>
+    对requestAnimationFrame更牢靠的封装
+    (function() {
+    var lastTime = 0;
+    var vendors = ['webkit', 'moz'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
+        window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+        var id = window.setTimeout(function() {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+        };
+    }
+    if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+    }
+    }());
+</template>
+</body>
+</html>
